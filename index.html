@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="en"><head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Generator with Category Filter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #1C6EA4;
+background: -moz-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%);
+background: -webkit-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%);
+background: linear-gradient(to right, #1C6EA4 0%, #2388CB 50%, #144E75 100%);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+         
+
+
+@import url('https://fonts.googleapis.com/css2?family=Mingzat:wght@400&family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500;600;700;800;900&family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+background: #498587;
+border-radius: 12px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+text-shadow: 5px 5px 10px rgba(155, 93, 12, 0.4);
+color: #3dfcc9;
+font-size: 2rem;
+font-family: Times New Roman, serif;
+        }
+
+        .quote-card {
+            
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+font-family: , serif;
+font-size: 22px;
+letter-spacing: 1.5px;
+word-spacing: 2px;
+color: #fff;
+font-weight: 700;
+color: #fff;
+background-color: #B6E2FF;
+text-shadow: rgb(22, 255, 255) 1px 1px 0px;
+text-decoration: none;
+font-style: normal;
+font-variant: normal;
+text-transform: capitalize;
+        }
+
+        .quote-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        #quote {
+            font-size: 1.2em;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            
+        }
+
+        #author {
+            font-style: italic;
+            color: #666;
+        }
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+            text-shadow: rgb(22, 255, 255) 1px 1px 0px;
+            
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        select {
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                font-family: Georgia , serif ;
+            }
+
+            .quote-card {
+                padding: 20px;
+            }
+
+            #quote {
+                font-size: 1em;
+            }
+
+            button, select {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quote Generator with Category Filter</h1>
+        <select id="category-select">
+            <option value="">All Categories</option>
+            <option value="inspiration">Inspiration</option>
+            <option value="leadership">Leadership</option>
+            <option value="wisdom">Wisdom</option>
+            <option value="success">Success</option>
+            <option value="life">Life</option>
+        </select>
+        <div class="quote-card">
+            <p id="quote">"Loading..."</p>
+            <p id="author"></p>
+        </div>
+        <button id="new-quote-btn">New Quote</button>
+    </div>
+
+    <script>
+        const quotes = [
+            { content: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela", category: "inspiration" },
+            { content: "The way to get started is to quit talking and begin doing.", author: "Walt Disney", category: "success" },
+            { content: "Your time is limited, don't waste it living someone else's life.", author: "Steve Jobs", category: "life" },
+            { content: "If life were predictable it would cease to be life, and be without flavor.", author: "Eleanor Roosevelt", category: "life" },
+            { content: "If you look at what you have in life, you'll always have more.", author: "Oprah Winfrey", category: "wisdom" },
+            { content: "If you set your goals ridiculously high and it's a failure, you will fail above everyone else's success.", author: "James Cameron", category: "success" },
+            { content: "Life is what happens when you're busy making other plans.", author: "John Lennon", category: "life" },
+            { content: "Spread love everywhere you go. Let no one ever come to you without leaving happier.", author: "Mother Teresa", category: "inspiration" },
+            { content: "When you reach the end of your rope, tie a knot in it and hang on.", author: "Franklin D. Roosevelt", category: "inspiration" },
+            { content: "Always remember that you are absolutely unique. Just like everyone else.", author: "Margaret Mead", category: "wisdom" },
+            { content: "Don't judge each day by the harvest you reap but by the seeds that you plant.", author: "Robert Louis Stevenson", category: "wisdom" },
+            { content: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt", category: "inspiration" },
+            { content: "Tell me and I forget. Teach me and I remember. Involve me and I learn.", author: "Benjamin Franklin", category: "wisdom" },
+            { content: "The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart.", author: "Helen Keller", category: "life" },
+            { content: "It is during our darkest moments that we must focus to see the light.", author: "Aristotle", category: "inspiration" },
+            { content: "Whoever is happy will make others happy too.", author: "Anne Frank", category: "inspiration" },
+            { content: "Do not go where the path may lead, go instead where there is no path and leave a trail.", author: "Ralph Waldo Emerson", category: "leadership" },
+            { content: "You will face many defeats in life, but never let yourself be defeated.", author: "Maya Angelou", category: "inspiration" },
+            { content: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela", category: "inspiration" },
+            { content: "In the end, it's not the years in your life that count. It's the life in your years.", author: "Abraham Lincoln", category: "life" },
+            { content: "Never let the fear of striking out keep you from playing the game.", author: "Babe Ruth", category: "success" },
+            { content: "Life is either a daring adventure or nothing at all.", author: "Helen Keller", category: "life" },
+            { content: "Many of life's failures are people who did not realize how close they were to success when they gave up.", author: "Thomas A. Edison", category: "success" },
+            { content: "You have brains in your head. You have feet in your shoes. You can steer yourself any direction you choose.", author: "Dr. Seuss", category: "inspiration" },
+            { content: "If you really look closely, most overnight successes took a long time.", author: "Steve Jobs", category: "success" },
+            { content: "The only way to do great work is to love what you do.", author: "Steve Jobs", category: "success" },
+            { content: "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do.", author: "Mark Twain", category: "life" },
+            { content: "The purpose of our lives is to be happy.", author: "Dalai Lama", category: "life" },
+            { content: "You only live once, but if you do it right, once is enough.", author: "Mae West", category: "life" },
+            { content: "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.", author: "Ralph Waldo Emerson", category: "wisdom" },
+            { content: "The only impossible journey is the one you never begin.", author: "Tony Robbins", category: "inspiration" },
+            { content: "It is better to fail in originality than to succeed in imitation.", author: "Herman Melville", category: "success" },
+            { content: "The successful warrior is the average man, with laser-like focus.", author: "Bruce Lee", category: "success" },
+            { content: "There are no shortcuts to any place worth going.", author: "Beverly Sills", category: "success" },
+            { content: "Leadership is not about being in charge. It is about taking care of those in your charge.", author: "Simon Sinek", category: "leadership" },
+            { content: "I can't change the direction of the wind, but I can adjust my sails to always reach my destination.", author: "Jimmy Dean", category: "inspiration" },
+            { content: "If you want to lift yourself up, lift up someone else.", author: "Booker T. Washington", category: "leadership" },
+            { content: "I have not failed. I've just found 10,000 ways that won't work.", author: "Thomas A. Edison", category: "success" },
+            { content: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt", category: "inspiration" },
+            { content: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt", category: "success" },
+            { content: "Remember that not getting what you want is sometimes a wonderful stroke of luck.", author: "Dalai Lama", category: "wisdom" },
+            { content: "You miss 100% of the shots you don't take.", author: "Wayne Gretzky", category: "success" },
+            { content: "A person who never made a mistake never tried anything new.", author: "Albert Einstein", category: "wisdom" },
+            { content: "The most difficult thing is the decision to act, the rest is merely tenacity.", author: "Amelia Earhart", category: "success" },
+            { content: "Every strike brings me closer to the next home run.", author: "Babe Ruth", category: "success" },
+            { content: "Life is 10% what happens to me and 90% of how I react to it.", author: "Charles Swindoll", category: "wisdom" },
+            { content: "Believe you can and you're halfway there.", author: "Theodore Roosevelt", category: "inspiration" },
+            { content: "The mind is everything. What you think you become.", author: "Buddha", category: "wisdom" },
+            { content: "An unexamined life is not worth living.", author: "Socrates", category: "wisdom" },
+            { content: "Eighty percent of success is showing up.", author: "Woody Allen", category: "success" }
+        ];
+
+        const quoteElement = document.getElementById("quote");
+        const authorElement = document.getElementById("author");
+        const newQuoteButton = document.getElementById("new-quote-btn");
+        const categorySelect = document.getElementById("category-select");
+
+        const getRandomQuote = (category = "") => {
+            const filteredQuotes = category
+                ? quotes.filter(quote => quote.category === category)
+                : quotes;
+            
+            if (filteredQuotes.length === 0) {
+                return { content: "No quotes found for this category.", author: "" };
+            }
+
+            const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+            return filteredQuotes[randomIndex];
+        };
+
+        const displayNewQuote = () => {
+            const category = categorySelect.value;
+            const { content, author } = getRandomQuote(category);
+            quoteElement.textContent = `"${content}"`;
+            authorElement.textContent = `— ${author}`;
+        };
+
+        // Display a new quote on page load
+        displayNewQuote();
+
+        // Display a new quote when the button is clicked
+        newQuoteButton.addEventListener("click", displayNewQuote);
+
+        // Display a new quote when the category is changed
+        categorySelect.addEventListener("change", displayNewQuote);
+    </script>
+
+
+</body></html>
